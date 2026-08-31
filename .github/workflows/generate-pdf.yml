@@ -1,0 +1,46 @@
+name: Génération Doc PDF Style Entreprise
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'README.md'
+      - 'docs/**'
+
+jobs:
+  convert-to-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code source
+        uses: actions/checkout@v4
+
+      - name: Générer le PDF avec Pandoc et le template Eisvogel
+        uses: bsanya/pandoc-action@v1
+        with:
+          args: >-
+            README.md
+            --from markdown
+            --template eisvogel
+            --pdf-engine=xelatex
+            --toc
+            --toc-depth=3
+            --number-sections
+            --highlight-style kate
+            -V title="DOCUMENTATION TECHNIQUE"
+            -V subtitle="Guide d'Architecture & Spécifications"
+            -V author="Développeur Lead"
+            -V date="2026"
+            -V titlepage=true
+            -V titlepage-color="0F172A"
+            -V titlepage-text-color="FFFFFF"
+            -V titlepage-rule-color="0EA5E9"
+            -V titlepage-rule-height=4
+            -V header-right="CONFIDENTIEL"
+            -V footer-right="Page \thepage"
+            -o documentation.pdf
+
+      - name: Publier le PDF en tant qu'Artifact GitHub
+        uses: actions/upload-artifact@v4
+        with:
+          name: Documentation-PDF
+          path: documentation.pdf
