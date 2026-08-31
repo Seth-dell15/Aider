@@ -1,0 +1,11 @@
+# Invoquer l'agent Dev pour une tâche
+aider --message-file .aider-prompts/dev.md --message "Crée un module auth avec le pattern Repository"
+
+# Invoquer l'agent Test avec exécution automatique des tests
+aider --message-file .aider-prompts/test.md --test-cmd "pytest" --auto-test
+
+# Invoquer l'agent Doc
+aider --message-file .aider-prompts/doc.md --message "Met à jour la doc du module auth"
+
+# Réutilisation
+Il te suffit de copier le fichier CONVENTIONS.md et le dossier .aider-prompts/ à la racine de n'importe quel nouveau projet
