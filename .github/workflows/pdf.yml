@@ -23,11 +23,7 @@ jobs:
         run: |
           pandoc README.md \
             --pdf-engine=weasyprint \
-            -metadata title="Documentation Technique" \
-            -V margin-top=20mm \
-            -V margin-bottom=20mm \
-            -V margin-left=20mm \
-            -V margin-right=20mm \
+            --metadata title="Documentation Technique" \
             -o documentation.pdf
 
       - name: Publier le PDF en Artifact
