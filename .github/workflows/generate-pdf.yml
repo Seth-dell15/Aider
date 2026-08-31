@@ -6,6 +6,7 @@ on:
     paths:
       - 'README.md'
       - 'docs/**'
+  workflow_dispatch:
 
 jobs:
   convert-to-pdf:
@@ -14,8 +15,13 @@ jobs:
       - name: Récupérer le code source
         uses: actions/checkout@v4
 
-      - name: Générer le PDF avec Pandoc et le template Eisvogel
-        uses: bsanya/pandoc-action@v1
+      - name: Télécharger le template Eisvogel
+        run: |
+          mkdir -p ~/.local/share/pandoc/templates
+          wget https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/v2.4.0/eisvogel.tex -O ~/.local/share/pandoc/templates/eisvogel.latex
+
+      - name: Générer le PDF avec Pandoc Officiel
+        uses: docker://pandoc/extra:latest
         with:
           args: >-
             README.md
@@ -25,11 +31,6 @@ jobs:
             --toc
             --toc-depth=3
             --number-sections
-            --highlight-style kate
-            -V title="DOCUMENTATION TECHNIQUE"
-            -V subtitle="Guide d'Architecture & Spécifications"
-            -V author="Développeur Lead"
-            -V date="2026"
             -V titlepage=true
             -V titlepage-color="0F172A"
             -V titlepage-text-color="FFFFFF"
@@ -39,7 +40,7 @@ jobs:
             -V footer-right="Page \thepage"
             -o documentation.pdf
 
-      - name: Publier le PDF en tant qu'Artifact GitHub
+      - name: Publier le PDF en Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Documentation-PDF
