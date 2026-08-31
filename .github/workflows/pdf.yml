@@ -1,17 +1,17 @@
-mkdir -p .github/workflows
-cat << 'EOF' > .github/workflows/pdf.yml
 name: Export PDF
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Récupérer le code source
+      - name: Recuperer le code source
         uses: actions/checkout@v4
 
       - name: Convertir README.md en PDF avec Marp
@@ -23,4 +23,3 @@ jobs:
         with:
           name: Documentation-PDF
           path: documentation.pdf
-EOF
