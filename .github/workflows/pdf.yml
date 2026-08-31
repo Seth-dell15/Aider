@@ -1,0 +1,26 @@
+mkdir -p .github/workflows
+cat << 'EOF' > .github/workflows/pdf.yml
+name: Export PDF
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code source
+        uses: actions/checkout@v4
+
+      - name: Convertir README.md en PDF avec Marp
+        run: |
+          npx @marp-team/marp-cli@latest README.md --pdf --allow-local-files -o documentation.pdf
+
+      - name: Publier le PDF en Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Documentation-PDF
+          path: documentation.pdf
+EOF
