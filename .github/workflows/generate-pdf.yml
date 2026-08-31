@@ -9,26 +9,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  convert-to-pdf:
+  build-pdf:
     runs-on: ubuntu-latest
+    container:
+      image: pandoc/extra:latest
+      options: --entrypoint ""
+
     steps:
       - name: Récupérer le code source
         uses: actions/checkout@v4
 
-      - name: Installer TeX Live (LaTeX)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic wget
-
-      - name: Installer Pandoc
-        uses: pandoc/actions/setup@v1
-        with:
-          version: '3.1.11'
-
       - name: Télécharger le template Eisvogel
         run: |
-          mkdir -p ~/.local/share/pandoc/templates
-          wget https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/v2.4.0/eisvogel.tex -O ~/.local/share/pandoc/templates/eisvogel.latex
+          mkdir -p /.pandoc/templates
+          wget https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/v2.4.0/eisvogel.tex -O /.pandoc/templates/eisvogel.latex
 
       - name: Générer le PDF
         run: |
