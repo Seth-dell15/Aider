@@ -37,3 +37,4 @@ Les tests unitaires sont écrits pour chaque nouvelle fonction dans les fichiers
 - **Dev** : Génère du code modulaire avec gestion d'erreurs explicite.
 - **Test** : Écrit des tests unitaires isolés pour chaque nouvelle fonction.
 - **Doc** : Ajoute des docstrings au format Google/Sphinx et met à jour le `README.md`.
+
