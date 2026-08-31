@@ -15,29 +15,37 @@ jobs:
       - name: Récupérer le code source
         uses: actions/checkout@v4
 
+      - name: Installer TeX Live (LaTeX)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-plain-generic wget
+
+      - name: Installer Pandoc
+        uses: pandoc/actions/setup@v1
+        with:
+          version: '3.1.11'
+
       - name: Télécharger le template Eisvogel
         run: |
           mkdir -p ~/.local/share/pandoc/templates
           wget https://raw.githubusercontent.com/Wandmalfarbe/pandoc-latex-template/v2.4.0/eisvogel.tex -O ~/.local/share/pandoc/templates/eisvogel.latex
 
-      - name: Générer le PDF avec Pandoc Officiel
-        uses: docker://pandoc/extra:latest
-        with:
-          args: >-
-            README.md
-            --from markdown
-            --template eisvogel
-            --pdf-engine=xelatex
-            --toc
-            --toc-depth=3
-            --number-sections
-            -V titlepage=true
-            -V titlepage-color="0F172A"
-            -V titlepage-text-color="FFFFFF"
-            -V titlepage-rule-color="0EA5E9"
-            -V titlepage-rule-height=4
-            -V header-right="CONFIDENTIEL"
-            -V footer-right="Page \thepage"
+      - name: Générer le PDF
+        run: |
+          pandoc README.md \
+            --from markdown \
+            --template eisvogel \
+            --pdf-engine=xelatex \
+            --toc \
+            --toc-depth=3 \
+            --number-sections \
+            -V titlepage=true \
+            -V titlepage-color="0F172A" \
+            -V titlepage-text-color="FFFFFF" \
+            -V titlepage-rule-color="0EA5E9" \
+            -V titlepage-rule-height=4 \
+            -V header-right="CONFIDENTIEL" \
+            -V footer-right="Page \thepage" \
             -o documentation.pdf
 
       - name: Publier le PDF en Artifact
