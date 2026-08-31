@@ -1,30 +1,6 @@
----
-marp: true
-size: A4
-paginate: true
-header: 'PROJET — Documentation Technique'
-footer: 'Page %PAGE%'
-style: |
-  section {
-    width: 210mm;
-    height: 297mm;
-    padding: 25mm 20mm;
-    font-size: 13pt;
-    line-height: 1.5;
-    justify-content: flex-start;
-  }
-  h1 { color: #0f172a; border-bottom: 2px solid #0ea5e9; padding-bottom: 8px; font-size: 22pt; }
-  h2 { color: #1e293b; margin-top: 25px; font-size: 16pt; }
-  h3 { color: #0ea5e9; margin-top: 15px; font-size: 13pt; }
-  code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 11pt; }
-  ul { line-height: 1.6; }
----
-
 # Automatisation de Workflow & Gestion d'Agent IA
 
 Ce projet a été conçu pour apprendre l'automatisation de workflow et la gestion d'agent IA en utilisant le framework **aider**.
-
----
 
 ## Architecture du Projet
 
@@ -38,8 +14,6 @@ L'architecture du projet est basée sur le modèle de **Clean Architecture**, av
 
 ### Couche de Contrôleurs
 - `auth/controller/auth_controller.py` : Gestion des requêtes d'authentification.
-
----
 
 ## Tests Unitaires
 
