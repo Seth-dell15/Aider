@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Récupérer le code source
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
-      - name: Convertir le Markdown en PDF
+      - name: Convertir README.md en PDF avec Marp
         run: |
           npx @marp-team/marp-cli@latest README.md --pdf --allow-local-files -o documentation.pdf
 
