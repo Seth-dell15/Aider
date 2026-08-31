@@ -1,0 +1,23 @@
+name: Export PDF
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code source
+        uses: actions/checkout@v5
+
+      - name: Convertir le Markdown en PDF
+        run: |
+          npx @marp-team/marp-cli@latest README.md --pdf --allow-local-files -o documentation.pdf
+
+      - name: Publier le PDF en Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Documentation-PDF
+          path: documentation.pdf
